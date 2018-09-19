@@ -1,13 +1,33 @@
 <?php
 
-/*
+/**
+ * The plugin bootstrap file
+ *
+ * This file is read by WordPress to generate the plugin information in the plugin
+ * admin area. This file also includes all of the dependencies used by the plugin,
+ * registers the activation and deactivation functions, and defines a function
+ * that starts the plugin.
+ *
+ * @link              https://github.com/dpfrakes/presspage-wp-importer/
+ * @since             1.0.0
+ * @package           Presspage_WP_Importer
+ *
+ * @wordpress-plugin
+ * Plugin Name:       Presspage WP Importer
+ * Plugin URI:        https://github.com/dpfrakes/presspage-wp-importer/
+ * Description:       Migration script to import Presspage JSON export to WordPress
+ * Version:           1.0.0
+ * Author:            Dan Frakes
+ * Author URI:        https://github.com/dpfrakes/
+ * License:           GPL-2.0+
+ * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * Text Domain:       presspage-wp-importer
+ * Domain Path:       /languages
+ */
 
-	Imports data from PressPage JSON export. This file is referenced by
-	'/site/web/app/themes/voices/inc/scripts.php'. After initial run,
-	this file is automatically renamed to import_presspage_data-complete.php
-	to avoid multiple executions.
+define( 'PWI_VERSION', '1.0' );
 
-*/
+add_action( 'plugins_loaded', 'presspage_wp_importer_text_domain' );
 
 // A little hack to "catch" and save the image id with the post
 function featuredImageTrick($att_id){
@@ -20,9 +40,14 @@ function featuredImageTrick($att_id){
 set_time_limit(0);
 
 // Data
-$file_contents = file_get_contents( dirname(__FILE__) . '/data/feeds/releases-en-us.json' );
-$file_contents = file_get_contents( dirname(__FILE__) . '/data/feeds/test-real.json' );
-$json_content = json_decode('' . $file_contents, true);
+try {
+	// $file_contents = file_get_contents( dirname(__FILE__) . '/data/feeds/releases-en-us.json' );
+	$file_contents = file_get_contents( dirname(__FILE__) . '/data/feeds/test.json' );
+	$json_content = json_decode('' . $file_contents, true);
+} catch {
+	echo "Error retrieving and/or decoding JSON export file.";
+	exit(1);
+}
 
 // Require some Wordpress core files for processing images
 require_once(ABSPATH . 'wp-admin/includes/media.php');
