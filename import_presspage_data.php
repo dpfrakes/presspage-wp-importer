@@ -9,14 +9,14 @@
  * that starts the plugin.
  *
  * @link              https://github.com/dpfrakes/presspage-wp-importer/
- * @since             0.0.2
+ * @since             1.0.0
  * @package           Presspage_WP_Importer
  *
  * @wordpress-plugin
  * Plugin Name:       Presspage WP Importer
  * Plugin URI:        https://github.com/dpfrakes/presspage-wp-importer/
  * Description:       Migration script to import Presspage JSON export to WordPress
- * Version:           0.0.2
+ * Version:           1.0.0
  * Author:            Dan Frakes
  * Author URI:        https://github.com/dpfrakes/
  * License:           GPL-2.0+
