@@ -9,14 +9,14 @@
  * that starts the plugin.
  *
  * @link              https://github.com/dpfrakes/presspage-wp-importer/
- * @since             1.0.0
+ * @since             0.0.2
  * @package           Presspage_WP_Importer
  *
  * @wordpress-plugin
  * Plugin Name:       Presspage WP Importer
  * Plugin URI:        https://github.com/dpfrakes/presspage-wp-importer/
  * Description:       Migration script to import Presspage JSON export to WordPress
- * Version:           1.0.0
+ * Version:           0.0.2
  * Author:            Dan Frakes
  * Author URI:        https://github.com/dpfrakes/
  * License:           GPL-2.0+
@@ -43,8 +43,7 @@ function presspage_wp_importer_run_import() {
 
 	// Data
 	try {
-		// $file_contents = file_get_contents( /home/wpe-user/sites/ngblogstage/presspage-data/feeds/releases-en-us.json' );
-		$file_contents = file_get_contents( '/home/wpe-user/sites/ngblogstage/presspage-data/feeds/test.json' );
+		$file_contents = file_get_contents( '/home/wpe-user/sites/ngblogstage/wp-content/export-account/feeds/releases-en-us.json' );
 		$json_content = json_decode('' . $file_contents, true);
 	} catch {
 		echo "Error retrieving and/or decoding JSON export file.";
@@ -126,7 +125,7 @@ function presspage_wp_importer_run_import() {
 						media_sideload_image('http:' . $post_image_url, $postInsertId);
 					} else {
 						// Local
-						media_sideload_image(dirname(__FILE__) . '/data/uploads/' . $post_image_url, $postInsertId);
+						media_sideload_image('/home/wpe-user/sites/ngblogstage/wp-content/export-account/uploads/' . $post_image_url, $postInsertId);
 					}
 
 					add_action('add_attachment', 'featuredImageTrick');
