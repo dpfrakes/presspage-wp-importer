@@ -44,9 +44,9 @@ function featuredImageTrick($att_id){
 }
 
 // Class to run asynchronously
-class PresspageImport extends WP_Async_Request {
+public class PresspageImport extends WP_Async_Request {
 
-	protected $action = 'presspage_wp_importer_async_process';
+	public $action = 'presspage_wp_importer_async_process';
 
 	protected function handle() {
 
@@ -169,7 +169,7 @@ function presspage_wp_importer_run_import() {
 }
 
 function presspage_wp_importer_import_complete() {
-	echo '<div><p>PressPage import complete.<p></div>';
+	add_action( 'admin_notices', 'presspage_wp_importer_deactivation_message' );
 }
 
 register_activation_hook( __FILE__, 'presspage_wp_importer_run_import' );
@@ -181,7 +181,24 @@ function presspage_wp_importer_activation_message(){
 
 	/* Check transient, if available display notice */
 	if( get_transient( 'presspage-import-admin-notice' ) ){
-		echo '<div class="admin-notice is-dismissible"><p>Presspage import has started. Plugin will automatically deactivate when import is complete.</p></div>';
+		echo '<div class="notice notice-success is-dismissible"><p>Presspage import has started. Plugin will automatically deactivate when import is complete.</p>
+			<button type="button" class="notice-dismiss">
+				<span class="screen-reader-text">Dismiss this notice.</span>
+			</button>
+		</div>';
 		delete_transient( 'presspage-import-admin-notice' );
 	}
 }
+
+function presspage_wp_importer_deactivation_message(){
+	echo '<div class="notice notice-success is-dismissible"><p>Import finished. Presspage import plugin has been deactivated.</p></div>';
+}
+
+/* debug wordpress unhelpful error messages */
+// https://www.toddlahman.com/the-plugin-generated-x-characters-of-unexpected-output-during-activation/
+function tl_save_error() {
+	update_option( 'plugin_error',  ob_get_contents() );
+}
+
+add_action( 'activated_plugin', 'tl_save_error' );
+echo get_option( 'plugin_error' );
