@@ -173,11 +173,9 @@ function presspage_wp_importer_activation_message(){
 
 /* debug wordpress unhelpful error messages */
 // https://www.toddlahman.com/the-plugin-generated-x-characters-of-unexpected-output-during-activation/
-function tl_save_error() {
-	update_option( 'plugin_error',  ob_get_contents() );
-}
+// function tl_save_error() {
+// 	update_option( 'plugin_error',  ob_get_contents() );
+// }
 
-add_action( 'activated_plugin', 'tl_save_error' );
-echo get_option( 'plugin_error' );
-
-?>
+// add_action( 'activated_plugin', 'tl_save_error' );
+// echo get_option( 'plugin_error' );
