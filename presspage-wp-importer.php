@@ -137,7 +137,7 @@ function presspage_wp_importer_run_import() {
 						media_sideload_image('http:' . $post_image_url, $postInsertId);
 					} else {
 						// Local
-						media_sideload_image('/home/wpe-user/sites/ngblogstage/wp-content/export-account/uploads/' . $post_image_url, $postInsertId);
+						media_sideload_image('./export-account/uploads/' . $post_image_url, $postInsertId);
 					}
 
 					add_action('add_attachment', 'featuredImageTrick');
