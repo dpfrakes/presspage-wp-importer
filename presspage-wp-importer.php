@@ -54,7 +54,7 @@ function presspage_wp_importer_run_import() {
 
 	// Data
 	try {
-		$file_contents = file_get_contents( './export-account/feeds/releases-en-us.json' );
+		$file_contents = file_get_contents(plugin_dir_path(__FILE__) . 'export-account/feeds/releases-en-us.json');
 		$json_content = json_decode('' . $file_contents, true);
 	} catch (Exception $e) {
 		echo "Error retrieving and/or decoding JSON export file.";
@@ -137,7 +137,7 @@ function presspage_wp_importer_run_import() {
 						media_sideload_image('http:' . $post_image_url, $postInsertId);
 					} else {
 						// Local
-						media_sideload_image('./export-account/uploads/' . $post_image_url, $postInsertId);
+						media_sideload_image(plugin_dir_path(__FILE__) . 'export-account/uploads/' . $post_image_url, $postInsertId);
 					}
 
 					add_action('add_attachment', 'featuredImageTrick');
