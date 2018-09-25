@@ -44,9 +44,11 @@ function featuredImageTrick($att_id){
 }
 
 // Class to run asynchronously
-class PresspageImport extends Thread {
+class PresspageImport extends WP_Async_Request {
 
-	public function run() {
+	protected $action = 'presspage_wp_importer_async_process';
+
+	protected function handle() {
 
 		// Disable a time limit
 		set_time_limit(0);
@@ -161,9 +163,9 @@ function presspage_wp_importer_run_import() {
 	// Enable dismissable admin notice
 	set_transient('presspage-import-admin-notice', true, 5);
 
-	// Begin import as background process
+	// Begin import as async process
 	$import = new PresspageImport();
-	var_dump($import->start());
+	var_dump($import->dispatch());
 }
 
 function presspage_wp_importer_import_complete() {
