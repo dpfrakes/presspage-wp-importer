@@ -164,9 +164,20 @@ add_action( 'admin_notices', 'presspage_wp_importer_activation_message' );
 
 function presspage_wp_importer_activation_message(){
 
-    /* Check transient, if available display notice */
-    if( get_transient( 'presspage-import-admin-notice' ) ){
-        echo '<div class="admin-notice is-dismissible"><p>Presspage import has started.</p></div>';
-        delete_transient( 'presspage-import-admin-notice' );
-    }
+	/* Check transient, if available display notice */
+	if( get_transient( 'presspage-import-admin-notice' ) ){
+		echo '<div class="admin-notice is-dismissible"><p>Presspage import has started.</p></div>';
+		delete_transient( 'presspage-import-admin-notice' );
+	}
 }
+
+/* debug wordpress unhelpful error messages */
+// https://www.toddlahman.com/the-plugin-generated-x-characters-of-unexpected-output-during-activation/
+function tl_save_error() {
+	update_option( 'plugin_error',  ob_get_contents() );
+}
+
+add_action( 'activated_plugin', 'tl_save_error' );
+echo get_option( 'plugin_error' );
+
+?>
