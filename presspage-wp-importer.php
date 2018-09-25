@@ -46,6 +46,9 @@ function featuredImageTrick($att_id){
 
 function presspage_wp_importer_run_import() {
 
+	// Enable dismissable admin notice
+	set_transient('presspage-import-admin-notice', true, 5);
+
 	// Disable a time limit
 	set_time_limit(0);
 
@@ -156,3 +159,14 @@ function presspage_wp_importer_import_complete() {
 
 register_activation_hook( __FILE__, 'presspage_wp_importer_run_import' );
 register_deactivation_hook( __FILE__, 'presspage_wp_importer_import_complete' );
+
+add_action( 'admin_notices', 'presspage_wp_importer_activation_message' );
+
+function presspage_wp_importer_activation_message(){
+
+    /* Check transient, if available display notice */
+    if( get_transient( 'presspage-import-admin-notice' ) ){
+        echo '<div class="admin-notice is-dismissible"><p>Presspage import has started.</p></div>';
+        delete_transient( 'presspage-import-admin-notice' );
+    }
+}
