@@ -25,7 +25,7 @@
  * Domain Path:       /languages
  */
 
-define( 'PWI_VERSION', '1.0' );
+if (!defined('PWI_VERSION')) define( 'PWI_VERSION', '1.0' );
 
 add_action( 'plugins_loaded', 'presspage_wp_importer_text_domain' );
 /**
