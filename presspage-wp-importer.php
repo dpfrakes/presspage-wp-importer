@@ -33,8 +33,10 @@ add_action( 'plugins_loaded', 'presspage_wp_importer_text_domain' );
  *
  * @since 1.0
  */
-function presspage_wp_importer_text_domain() {
-	load_plugin_textdomain( 'presspage-wp-importer' );
+if (!function_exists('presspage_wp_importer_text_domain')) {
+	function presspage_wp_importer_text_domain() {
+		load_plugin_textdomain( 'presspage-wp-importer' );
+	}
 }
 
 // A little hack to "catch" and save the image id with the post
