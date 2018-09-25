@@ -54,7 +54,7 @@ function presspage_wp_importer_run_import() {
 
 	// Data
 	try {
-		$file_contents = file_get_contents( '/home/wpe-user/sites/ngblogstage/wp-content/export-account/feeds/releases-en-us.json' );
+		$file_contents = file_get_contents( './export-account/feeds/releases-en-us.json' );
 		$json_content = json_decode('' . $file_contents, true);
 	} catch (Exception $e) {
 		echo "Error retrieving and/or decoding JSON export file.";
