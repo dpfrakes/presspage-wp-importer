@@ -44,7 +44,7 @@ function featuredImageTrick($att_id){
 }
 
 // Class to run asynchronously
-public class PresspageImport extends WP_Async_Request {
+class PresspageImport extends WP_Async_Request {
 
 	public $action = 'presspage_wp_importer_async_process';
 
@@ -165,7 +165,7 @@ function presspage_wp_importer_run_import() {
 
 	// Begin import as async process
 	$import = new PresspageImport();
-	var_dump($import->dispatch());
+	$import->dispatch();
 }
 
 function presspage_wp_importer_import_complete() {
@@ -197,7 +197,7 @@ function presspage_wp_importer_deactivation_message(){
 /* debug wordpress unhelpful error messages */
 // https://www.toddlahman.com/the-plugin-generated-x-characters-of-unexpected-output-during-activation/
 function tl_save_error() {
-	update_option( 'plugin_error',  ob_get_contents() );
+	update_option( 'plugin_error',  ob_get_clean() );
 }
 
 add_action( 'activated_plugin', 'tl_save_error' );
