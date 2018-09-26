@@ -88,6 +88,11 @@ if (!function_exists('run_presspage_import')) {
 						throw new Exception('Entry ' . $k + 1 . ' does not contain message');
 					}
 
+					$post_title = $presspage_post['title'];
+					if ( array_key_exists('subtitle', $presspage_post) ) {
+						$post_title .= ': ' . $presspage_post['subtitle'];
+					}
+
 					$excerpt = wp_trim_words(strip_tags($presspage_post['message'], '<a>'), 60);
 					if ( array_key_exists('summary', $presspage_post) ) {
 						$excerpt = wp_trim_words(strip_tags($presspage_post['summary'], '<a>'), 60);
@@ -95,14 +100,21 @@ if (!function_exists('run_presspage_import')) {
 						$excerpt = substr(strip_tags($presspage_post['summary'], '<a>'), 0, strpos($excerpt, '<!--more'));
 					}
 
-					// Let's start with creating the post itself
+					$post_tags = array();
+					if ( array_key_exists('tags', $presspage_post) ) {
+						$post_tags = explode(',', $presspage_post['tags']);
+					}
+
+					// Author defaults to current user (admin)
+					// Author not included in PressPage export
 					$postCreated = array(
 						'post_title'    => $presspage_post['title'],
 						'post_content'  => $presspage_post['message'],
 						'post_excerpt'  => $excerpt,
 						'post_date'     => $presspage_post['date'],
 						'post_status'   => 'publish',
-						'post_type'     => 'post', // Or "page" or some custom post type
+						'post_type'     => 'post',
+						'tags_input'    => $post_tags,
 					);
 
 					// Get the increment id from the inserted post
