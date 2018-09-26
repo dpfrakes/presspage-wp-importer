@@ -108,7 +108,7 @@ if (!function_exists('run_presspage_import')) {
 					// Author defaults to current user (admin)
 					// Author not included in PressPage export
 					$postCreated = array(
-						'post_title'    => $presspage_post['title'],
+						'post_title'    => $post_title,
 						'post_content'  => $presspage_post['message'],
 						'post_excerpt'  => $excerpt,
 						'post_date'     => $presspage_post['date'],
