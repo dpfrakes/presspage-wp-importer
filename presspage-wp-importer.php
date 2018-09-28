@@ -51,8 +51,8 @@ if (!function_exists('run_presspage_import')) {
 	// Run import asynchronously
 	function run_presspage_import() {
 
-		// Disable a time limit
-		set_time_limit(0);
+		// Set time limit to 2 hours
+		set_time_limit(7200);
 
 		// Data
 		try {
