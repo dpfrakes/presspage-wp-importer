@@ -161,7 +161,7 @@ if (!function_exists('run_presspage_import')) {
 					}
 
 				} catch (Exception $exc) {
-					echo $exc->getMessage() . '<br/>';
+					error_log('[Presspage WP Importer] - ' . $exc->getMessage());
 				}
 			}
 		}
